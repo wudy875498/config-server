@@ -1,0 +1,10 @@
+server:
+  port: 10000
+eureka:
+  client:
+    service-url:
+      defaultZone: http://peer2:10001/eureka/
+  instance:
+    hostname: peer1
+  server:
+      eviction-interval-timer-in-ms: 20000       # 续期时间，即扫描失效服务的间隔时间（缺省为60*1000ms）

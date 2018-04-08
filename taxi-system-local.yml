@@ -1,0 +1,50 @@
+server:
+  port: 8104
+spring:
+  application:
+    name: taxi-system
+  rabbitmq:
+    host: 192.168.0.222
+    port: 5672
+    connection-timeout: 7000
+    virtual-host: /
+    username: root
+    password: '{cipher}aaa598ab8836842c849b48b772f8fbfc48fef9c4fb9f933dbeb73b91128e1523'
+    listener:
+      simple:
+        acknowledge-mode: auto
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    url: jdbc:mysql://192.168.0.222:3306/taxi-system?useUnicode=true&characterEncoding=UTF8&useSSL=false
+    username: root
+    password: '{cipher}aaa598ab8836842c849b48b772f8fbfc48fef9c4fb9f933dbeb73b91128e1523'
+    # 使用Hikari数据源
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+  mail:
+    host: smtp.exmail.qq.com
+    username: ServerManager@yoogonet.com
+    password: '{cipher}13f1244e2ff748553d3bade10e4ecc920df880128c33db3be163e67fffacfa19'
+    default-encoding: UTF-8
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 25000
+          starttls:
+            enable: true
+            required: true
+feign:
+  hystrix:
+    enabled: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://peer1:10000/eureka
+    registry-fetch-interval-seconds: 10
+  instance:
+    lease-renewal-interval-in-seconds: 10      # 心跳时间，即服务续约间隔时间（缺省为30s）
+    lease-expiration-duration-in-seconds: 20  # 发呆时间，即服务续约到期时间（缺省为90s）

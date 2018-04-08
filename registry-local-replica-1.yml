@@ -1,0 +1,11 @@
+server:
+  port: 10001
+eureka:
+  client:
+    service-url:
+      defaultZone: http://peer1:10000/eureka/
+  instance:
+    hostname: peer2
+#    prefer-ip-address: true  # 此配置是开启根据服务ip地址来注册，无需修改hosts
+  server:
+      eviction-interval-timer-in-ms: 21000       # 续期时间，即扫描失效服务的间隔时间（缺省为60*1000ms）

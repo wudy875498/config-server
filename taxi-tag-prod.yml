@@ -1,0 +1,40 @@
+server:
+  port: 8120
+spring:
+  application:
+    name: taxi-tag
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    url: jdbc:mysql://rm-bp1350w364k2r6sz3.mysql.rds.aliyuncs.com:3306/taxi-bi?useUnicode=true&characterEncoding=UTF8&useSSL=false
+    username: yoogurt
+    password: '{cipher}593904d6330413cf8698804b46d964cc44be00cf7cd5d57c63c7ca96faadcc56'
+    # 使用Hikari数据源
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+  mail:
+    host: smtp.exmail.qq.com
+    username: ServerManager@yoogonet.com
+    password: '{cipher}13f1244e2ff748553d3bade10e4ecc920df880128c33db3be163e67fffacfa19'
+    default-encoding: UTF-8
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 25000
+          starttls:
+            enable: true
+            required: true
+feign:
+  hystrix:
+    enabled: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://peer1:10000/eureka
+    registry-fetch-interval-seconds: 10
+  instance:
+    lease-renewal-interval-in-seconds: 10      # 心跳时间，即服务续约间隔时间（缺省为30s）
+    lease-expiration-duration-in-seconds: 20  # 发呆时间，即服务续约到期时间（缺省为90s）

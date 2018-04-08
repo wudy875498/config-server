@@ -1,0 +1,214 @@
+server:
+  port: 11111
+spring:
+  application:
+    name: taxi-gateway
+  cloud:
+    loadbalancer:
+      retry:
+        enabled: true
+  redis:
+      host: 116.62.201.147
+      port: 6370
+      password: '{cipher}24462190beaad45fc90fd249abfc16af0cc2c49530702a35036314f6d08de5ef'
+      timeout: 1800000
+  rabbitmq:
+    host: 116.62.201.147
+    port: 5672
+    connection-timeout: 7000
+    virtual-host: /
+    username: root
+    password: '{cipher}aaa598ab8836842c849b48b772f8fbfc48fef9c4fb9f933dbeb73b91128e1523'
+    listener:
+      simple:
+        acknowledge-mode: auto
+  thymeleaf:
+    mode: LEGACYHTML5
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    url: jdbc:mysql://rm-bp1350w364k2r6sz3.mysql.rds.aliyuncs.com:3306/taxi-gateway?useUnicode=true&characterEncoding=UTF8&useSSL=false
+    username: yoogurt
+    password: '{cipher}593904d6330413cf8698804b46d964cc44be00cf7cd5d57c63c7ca96faadcc56'
+    # 使用Hikari数据源
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+  mail:
+    host: smtp.exmail.qq.com
+    username: ServerManager@yoogonet.com
+    password: '{cipher}13f1244e2ff748553d3bade10e4ecc920df880128c33db3be163e67fffacfa19'
+    default-encoding: UTF-8
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 25000
+          starttls:
+            enable: true
+            required: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://peer1:10000/eureka
+    registry-fetch-interval-seconds: 10
+  instance:
+    lease-renewal-interval-in-seconds: 10      # 心跳时间，即服务续约间隔时间（缺省为30s）
+    lease-expiration-duration-in-seconds: 20  # 发呆时间，即服务续约到期时间（缺省为90s）
+feign:
+  compression:
+    request:
+      mime-types: text/xml,application/xml,application/json
+      min-request-size: 2048
+  hystrix:
+    enabled: true
+zuul:
+  retryable: true
+  max:
+    host:
+      connections: 500
+  host:
+    socket-timeout-millis: 30000
+    connect-timeout-millis: 30000
+  routes:
+    user:
+      path: /*/user/**
+      serviceId: taxi-user
+    account:
+      path: /*/account/**
+      serviceId: taxi-account
+    order:
+      path: /*/order/**
+      serviceId: taxi-order
+    trade:
+      path: /*/trade/**
+      serviceId: taxi-trade
+    work:
+      path: /*/work/**
+      serviceId: taxi-work
+    finance:
+      path: /*/finance/**
+      serviceId: taxi-finance
+    notification:
+      path: /*/notification/**
+      serviceId: taxi-notification
+    system:
+      path: /*/system/**
+      serviceId: taxi-system
+    credits:
+      path: /*/credits/**
+      serviceId: taxi-credits
+    bi:
+      path: /*/bi/**
+      serviceId: taxi-tag
+hystrix:
+  threadpool:
+    default:
+      coreSize: 200
+      maxQueueSize: 200
+      queueSizeRejectionThreshold: 50
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          strategy: THREAD
+          semaphore:
+            maxConcurrentRequests: 1000
+          thread:
+            timeoutInMilliseconds: 12000
+taxi-user:
+  ribbon:
+    ReadTimeout: 15000
+    ConnectTimeout: 15000
+    MaxAutoRetries: 2
+    MaxAutoRetriesNextServer: 3
+    OkToRetryOnAllOperations: true
+    eureka:
+      enabled: true
+taxi-account:
+  ribbon:
+    ReadTimeout: 15000
+    ConnectTimeout: 15000
+    MaxAutoRetries: 2
+    MaxAutoRetriesNextServer: 3
+    OkToRetryOnAllOperations: true
+    eureka:
+      enabled: true
+taxi-order:
+  ribbon:
+    ReadTimeout: 15000
+    ConnectTimeout: 15000
+    MaxAutoRetries: 2
+    MaxAutoRetriesNextServer: 3
+    OkToRetryOnAllOperations: true
+    eureka:
+      enabled: true
+taxi-work:
+  ribbon:
+    ReadTimeout: 10000
+    ConnectTimeout: 5000
+    MaxAutoRetries: 2
+    MaxAutoRetriesNextServer: 3
+    OkToRetryOnAllOperations: true
+    eureka:
+      enabled: true
+taxi-trade:
+  ribbon:
+    ReadTimeout: 15000
+    ConnectTimeout: 15000
+    MaxAutoRetries: 2
+    MaxAutoRetriesNextServer: 3
+    OkToRetryOnAllOperations: true
+    eureka:
+      enabled: true
+taxi-system:
+  ribbon:
+    ReadTimeout: 15000
+    ConnectTimeout: 15000
+    MaxAutoRetries: 2
+    MaxAutoRetriesNextServer: 3
+    OkToRetryOnAllOperations: true
+    eureka:
+      enabled: true
+taxi-finance:
+  ribbon:
+    ReadTimeout: 15000
+    ConnectTimeout: 15000
+    MaxAutoRetries: 2
+    MaxAutoRetriesNextServer: 3
+    OkToRetryOnAllOperations: true
+    eureka:
+      enabled: true
+taxi-notification:
+  ribbon:
+    ReadTimeout: 15000
+    ConnectTimeout: 15000
+    MaxAutoRetries: 2
+    MaxAutoRetriesNextServer: 3
+    OkToRetryOnAllOperations: true
+    eureka:
+      enabled: true
+taxi-credits:
+  ribbon:
+    ReadTimeout: 10000
+    ConnectTimeout: 5000
+    MaxAutoRetries: 2
+    MaxAutoRetriesNextServer: 3
+    OkToRetryOnAllOperations: true
+    eureka:
+      enabled: true
+taxi-tag:
+  ribbon:
+    ReadTimeout: 10000
+    ConnectTimeout: 5000
+    MaxAutoRetries: 2
+    MaxAutoRetriesNextServer: 3
+    OkToRetryOnAllOperations: true
+    eureka:
+      enabled: true
