@@ -32,5 +32,5 @@ spring:
     username: root
     password:
     # 使用Hikari数据源
-    type: com.zaxxer.hikari.HikariDataSource
+    type: spring.datasource.hikari
     driver-class-name: com.mysql.jdbc.Driver
