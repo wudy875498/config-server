@@ -9,7 +9,7 @@ spring:
         max-idle: 8
         max-wait: -1
         min-idle: 0
-    timeout: 100ms
+    timeout: 100
   data:
     mongodb:
       database: timer
