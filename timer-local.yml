@@ -7,7 +7,7 @@ spring:
       pool:
         max-active: 8
         max-idle: 8
-        max-wait: -1ms
+        max-wait: -1
         min-idle: 0
     timeout: 100ms
   data:
@@ -20,7 +20,7 @@ spring:
   rabbitmq:
     host: 127.0.0.1
     port: 5672
-    connection-timeout: 7000ms
+    connection-timeout: 7000
     virtual-host: /
     username: root
     password: root
